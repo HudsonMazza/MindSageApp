@@ -1,23 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/material.dart';
+import 'package:mind_sage/pages/auth_page.dart';
+class AuthService {
+  GoogleSignIn signIn = new GoogleSignIn();
 
-class AuthService{
-  // google sign in 
-  signInWithGoogle() async {
-    // begin interactive sign in process
-    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+  // google sign in
+  Future<void> googleSignin(BuildContext context) async {
+    try {
+      var gUser = await signIn.signIn();
+      print(gUser);
 
-    // obtain auth details from request
-    final GoogleSignInAuthentication  gAuth = await gUser!.authentication;
-
-    //create a new credential for user
-    final credential = GoogleAuthProvider.credential(
-      accessToken: gAuth.accessToken,
-      idToken: gAuth.idToken,
-    );
-
-    // finally, sign in!
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+      // Navegar para a HomePage após o login
+      if (gUser != null) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => AuthPage(),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
-
 }

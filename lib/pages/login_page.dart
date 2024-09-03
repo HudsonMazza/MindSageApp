@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_sage/components/my_button.dart';
 import 'package:mind_sage/components/my_textfield.dart';
+import 'package:mind_sage/pages/auth_page.dart';
 import 'package:mind_sage/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
@@ -92,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -129,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                 // username textfield - campo de username
                 MyTextField(
                   controller: emailController,
-                  hintText: 'Insira seu E-mail',
+                  labelText: 'Insira seu E-mail',
                   obscureText: false,
                 ),
 
@@ -140,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                 // password textfield - campo de senha
                 MyTextField(
                   controller: passwordController,
-                  hintText: 'Insira sua Senha',
+                  labelText: 'Insira sua Senha',
                   obscureText: true,
                 ),
 
@@ -215,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () => AuthService().signInWithGoogle(),
+                      onTap: () => AuthPage().signInWithGoogle(context),
                       child: Container(
                         padding: const EdgeInsets.all(5.0),
                         decoration: BoxDecoration(
